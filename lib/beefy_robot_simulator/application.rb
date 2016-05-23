@@ -7,6 +7,12 @@ class Application
   end
 
   def place(x, y, direction)
+    # remove the robot from the table if it has already been placed
+    current_position = @table.position_of(@robot)
+    unless current_position.nil?
+      @table.remove_item_at_position(@robot, current_position[:x], current_position[:y])
+    end
+
     @robot.change_direction(direction)
     @table.set_item_at_position(@robot, x, y)
   end

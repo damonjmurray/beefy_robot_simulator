@@ -15,6 +15,10 @@ class Table
     positions.detect { |p| p[:x] == x && p[:y] == y }[:occupant]
   end
 
+  def position_of(item)
+    @positions.detect { |p| p[:occupant] == item }
+  end
+
   def remove_item_at_position(item, x, y)
     fail ArgumentError, 'Invalid position' unless valid_position?(x, y)
 
