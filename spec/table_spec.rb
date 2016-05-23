@@ -10,12 +10,12 @@ RSpec.describe Table do
       expect(subject.y_range.length).to eq 5
     end
 
-    it 'has 25 positions' do
-      expect(subject.positions.size).to eq 25
-    end
+    context 'table positions' do
+      it 'has a total of 25 positions' do
+        expect(subject.positions.size).to eq 25
+      end
 
-    context 'all table positions' do
-      it 'has values for x, y and occupant' do
+      it 'has values for x, y and occupant in each position' do
         expect(subject.positions).to all include :x
         expect(subject.positions).to all include :y
         expect(subject.positions).to all include :occupant

@@ -6,7 +6,7 @@ class Application
     @table = Table.new
   end
 
-  def place
+  def place(x, y, direction)
     # TODO: place robot on board and set its direction
     raise NotImplementedError
   end
