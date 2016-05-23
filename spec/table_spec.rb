@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe Table do
+  let(:table) { Table.new }
+  let(:item) { Robot.new }
+
   describe 'a table' do
     it 'has 5 x-positions' do
       expect(subject.x_range.length).to eq 5
@@ -24,15 +27,51 @@ RSpec.describe Table do
   end
 
   describe '#set_item_at_position' do
-    let(:table) { Table.new }
-    let(:item) { Robot.new }
-
     subject { table.set_item_at_position(item, 2, 3) }
 
     it 'sets the item as the occupant in the specified position' do
       subject
       position = table.positions.detect { |p| p[:x] == 2 && p[:y] == 3 }
       expect(position[:occupant]).to be item
+    end
+  end
+
+  describe '#item_at' do
+    subject { table.item_at(x, y) }
+
+    before { table.set_item_at_position(item, 0, 0) }
+
+    context 'when position is invalid' do
+      let(:x) { table.x_range.last * 2 }
+      let(:y) { table.y_range.last * 2 }
+
+      it 'raises an ArgumentError' do
+        expect { subject }.to raise_error ArgumentError
+      end
+    end
+
+    context 'when position is valid' do
+      let(:x) { 0 }
+      let(:y) { 0 }
+      it { is_expected.to be item }
+    end
+  end
+
+  describe '#valid_position' do
+    subject { table.valid_position?(x, y) }
+
+    context 'when both values are in range' do
+      let(:x) { table.x_range.last }
+      let(:y) { table.y_range.last }
+
+      it { is_expected.to be true }
+    end
+
+    context 'when values are out of range' do
+      let(:x) { table.x_range.last * 2 }
+      let(:y) { table.y_range.last * 2 }
+
+      it { is_expected.to be false }
     end
   end
 end

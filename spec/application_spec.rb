@@ -15,14 +15,19 @@ RSpec.describe Application do
     let(:application) { Application.new }
     subject { application.place(2,2,'NORTH') }
 
+    before do
+      expect(application.robot.direction).to be_nil
+      expect(application.table.item_at(2, 3)).to be_nil
+    end
+
     it 'sets the robots direction' do
-      expect(application.robot.direction).to be nil
       subject
       expect(application.robot.direction).to eq 'NORTH'
     end
 
     it 'puts the robot in a position on the board' do
-
+      subject
+      expect(application.table.item_at(2, 2)).to be application.robot
     end
   end
 end
