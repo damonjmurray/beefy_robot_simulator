@@ -7,8 +7,8 @@ class Application
   end
 
   def place(x, y, direction)
-    # TODO: place robot on board and set its direction
-    raise NotImplementedError
+    @robot.change_direction(direction)
+    @table.set_item_at_position(@robot, x, y)
   end
 
   def left

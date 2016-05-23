@@ -18,7 +18,7 @@ RSpec.describe Application do
     it 'sets the robots direction' do
       expect(application.robot.direction).to be nil
       subject
-      expect(application.robot.direction).to be 'NORTH'
+      expect(application.robot.direction).to eq 'NORTH'
     end
 
     it 'puts the robot in a position on the board' do

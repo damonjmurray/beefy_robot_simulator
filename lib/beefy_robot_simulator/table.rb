@@ -7,6 +7,14 @@ class Table
                    .map { |x, y| { x: x, y: y, occupant: nil } }
   end
 
+  def set_item_at_position(item, x, y)
+    index = @positions.index { |p| p[:x] == x && p[:y] == y }
+    position = positions[index].clone
+    position[:occupant] = item
+
+    @positions[index] = position
+  end
+
   def x_range
     (0..4).to_a
   end

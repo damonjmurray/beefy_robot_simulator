@@ -22,4 +22,17 @@ RSpec.describe Table do
       end
     end
   end
+
+  describe '#set_item_at_position' do
+    let(:table) { Table.new }
+    let(:item) { Robot.new }
+
+    subject { table.set_item_at_position(item, 2, 3) }
+
+    it 'sets the item as the occupant in the specified position' do
+      subject
+      position = table.positions.detect { |p| p[:x] == 2 && p[:y] == 3 }
+      expect(position[:occupant]).to be item
+    end
+  end
 end
