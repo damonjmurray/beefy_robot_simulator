@@ -10,4 +10,13 @@ RSpec.describe Application do
       expect(subject.table).to be_a Table
     end
   end
+
+  describe '#place' do
+    let(:application) { Application.new }
+    subject { application.place(2,2,'NORTH') }
+
+    it 'puts the robot in a position on the board' do
+
+    end
+  end
 end
