@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 RSpec.describe Application do
+  let(:application) { Application.new }
+
   describe 'the application' do
     it 'has a robot' do
       expect(subject.robot).to be_a Robot
@@ -12,7 +14,6 @@ RSpec.describe Application do
   end
 
   describe '#place' do
-    let(:application) { Application.new }
     subject { application.place(2,2,'NORTH') }
 
     before do
@@ -43,6 +44,24 @@ RSpec.describe Application do
         end
 
         expect(robot_positions.size).to eq 1
+      end
+    end
+  end
+
+  describe '#report' do
+    subject { application.report }
+
+    context 'the robot is on the board' do
+      before { application.place(2, 3, 'EAST') }
+
+      it 'returns a string description of the robot location' do
+        expect(subject).to eq '2,3,EAST'
+      end
+    end
+
+    context 'the robot is not on the board' do
+      it 'does nothing' do
+        expect(subject).to be nil
       end
     end
   end

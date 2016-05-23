@@ -34,7 +34,9 @@ class Application
   end
 
   def report
-    # TODO: report the current position and direction of the robot
-    raise NotImplementedError
+    current_position = @table.position_of(@robot)
+    return if current_position.nil?
+
+    "#{current_position[:x]},#{current_position[:y]},#{@robot.direction.upcase}"
   end
 end
