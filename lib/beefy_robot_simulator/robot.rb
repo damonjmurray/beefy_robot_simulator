@@ -5,4 +5,8 @@ class Robot
     @name = 'BEEFY'
     @direction = nil
   end
+
+  def change_direction(new_direction)
+    @direction = new_direction
+  end
 end

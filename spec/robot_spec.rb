@@ -14,4 +14,17 @@ RSpec.describe Robot do
       expect(subject.direction).to be nil
     end
   end
+
+  describe '#change_direction' do
+    let(:robot) { Robot.new }
+    let(:new_direction) { 'SOUTH' }
+    subject { robot.change_direction(new_direction) }
+
+    before { expect(robot.direction).to be nil }
+
+    it "changes the robot's direction" do
+      subject
+      expect(robot.direction).to eq new_direction
+    end
+  end
 end
