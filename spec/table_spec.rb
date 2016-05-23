@@ -27,12 +27,24 @@ RSpec.describe Table do
   end
 
   describe '#set_item_at_position' do
-    subject { table.set_item_at_position(item, 2, 3) }
+    let(:x) { 2 }
+    let(:y) { 3 }
+
+    subject { table.set_item_at_position(item, x, y) }
 
     it 'sets the item as the occupant in the specified position' do
       subject
-      position = table.positions.detect { |p| p[:x] == 2 && p[:y] == 3 }
+      position = table.positions.detect { |p| p[:x] == x && p[:y] == y }
       expect(position[:occupant]).to be item
+    end
+
+    context 'when position is invalid' do
+      let(:x) { table.x_range.last * 2 }
+      let(:y) { table.y_range.last * 2 }
+
+      it 'raises an ArgumentError' do
+        expect { subject }.to raise_error ArgumentError
+      end
     end
   end
 
@@ -54,6 +66,32 @@ RSpec.describe Table do
       let(:x) { 0 }
       let(:y) { 0 }
       it { is_expected.to be item }
+    end
+  end
+
+  describe '#remove_item_at_position' do
+    subject { table.remove_item_at_position(item, x, y) }
+
+    context 'when item is in position' do
+      let(:x) { 0 }
+      let(:y) { 0 }
+
+      before { table.set_item_at_position(item, x, y) }
+
+      it 'removes the item from the position' do
+        expect(table.item_at(x, y)).to be item
+        subject
+        expect(table.item_at(x, y)).to be nil
+      end
+    end
+
+    context 'when position is invalid' do
+      let(:x) { table.x_range.last * 2 }
+      let(:y) { table.y_range.last * 2 }
+
+      it 'raises an ArgumentError' do
+        expect { subject }.to raise_error ArgumentError
+      end
     end
   end
 

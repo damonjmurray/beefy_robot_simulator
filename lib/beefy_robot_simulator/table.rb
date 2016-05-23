@@ -1,4 +1,7 @@
 class Table
+  X_MIN, X_MAX = 0, 4
+  Y_MIN, Y_MAX = 0, 4
+
   attr_reader :positions
 
   def initialize
@@ -12,8 +15,20 @@ class Table
     positions.detect { |p| p[:x] == x && p[:y] == y }[:occupant]
   end
 
+  def remove_item_at_position(item, x, y)
+    fail ArgumentError, 'Invalid position' unless valid_position?(x, y)
+
+    index = @positions.index { |p| p[:x] == x && p[:y] == y }
+    position = positions[index].clone
+    return unless position[:occupant] == item
+
+    position[:occupant] = nil
+    @positions[index] = position
+  end
+
   def set_item_at_position(item, x, y)
     fail ArgumentError, 'Invalid position' unless valid_position?(x, y)
+
     index = @positions.index { |p| p[:x] == x && p[:y] == y }
     position = positions[index].clone
     position[:occupant] = item
@@ -26,10 +41,10 @@ class Table
   end
 
   def x_range
-    (0..4).to_a
+    (X_MIN..X_MAX).to_a
   end
 
   def y_range
-    (0..4).to_a
+    (Y_MIN..Y_MAX).to_a
   end
 end
