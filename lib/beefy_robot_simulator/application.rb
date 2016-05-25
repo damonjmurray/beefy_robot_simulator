@@ -13,7 +13,7 @@ class Application
       @table.remove_item_at_position(@robot, current_position[:x], current_position[:y])
     end
 
-    @robot.change_direction(direction)
+    @robot.set_direction(direction)
     @table.set_item_at_position(@robot, x, y)
   end
 

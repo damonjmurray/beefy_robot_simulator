@@ -6,7 +6,7 @@ class Robot
     @direction = nil
   end
 
-  def change_direction(new_direction)
+  def set_direction(new_direction)
     @direction = new_direction
   end
 end

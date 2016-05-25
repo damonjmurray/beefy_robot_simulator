@@ -15,16 +15,16 @@ RSpec.describe Robot do
     end
   end
 
-  describe '#change_direction' do
+  describe '#set_direction' do
     let(:robot) { Robot.new }
-    let(:new_direction) { 'SOUTH' }
-    subject { robot.change_direction(new_direction) }
+    let(:direction) { 'SOUTH' }
+    subject { robot.set_direction(direction) }
 
     before { expect(robot.direction).to be nil }
 
-    it "changes the robot's direction" do
+    it "changes sets robot's direction" do
       subject
-      expect(robot.direction).to eq new_direction
+      expect(robot.direction).to eq direction
     end
   end
 end
