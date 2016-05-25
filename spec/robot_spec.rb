@@ -29,6 +29,22 @@ RSpec.describe Robot do
     end
   end
 
+  describe '#move_from' do
+    subject { robot.move_from(0, 0) }
+
+    [
+      { direction: Direction::NORTH, expected_result: { x: 0, y: 1 } },
+      { direction: Direction::EAST, expected_result: { x: 1, y: 0 } },
+      { direction: Direction::SOUTH, expected_result: { x: 0, y: -1 } },
+      { direction: Direction::WEST, expected_result: { x: -1, y: 0 } }
+    ].each do |expectation|
+      context "when robot is facing #{expectation[:direction]}" do
+        before { robot.set_direction(expectation[:direction]) }
+        it { is_expected.to eq expectation[:expected_result] }
+      end
+    end
+  end
+
   describe '#turn_left' do
     subject { robot.turn_left }
 

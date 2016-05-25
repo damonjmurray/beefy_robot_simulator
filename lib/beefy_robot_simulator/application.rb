@@ -28,9 +28,14 @@ class Application
   end
 
   def move
-    # TODO: change position of robot on board by one unit in the
-    #       direction the robot is currently facing
-    raise NotImplementedError
+    current_position = @table.position_of(@robot)
+    return if current_position.nil?
+
+    target_position = @robot.move_from(current_position[:x], current_position[:y])
+
+    return unless @table.valid_position(target_position[:x], target_position[:y])
+    @table.remove_item_at_position(@robot, current_position[:x], current_position[:y])
+    @table.set_item_at_position(@robot, target_position[:x], target_position[:y])
   end
 
   def report
