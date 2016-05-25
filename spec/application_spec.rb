@@ -90,4 +90,22 @@ RSpec.describe Application do
       end
     end
   end
+
+  describe '#move' do
+    subject { application.move }
+    let(:table) { application.table }
+    let(:robot) { application.robot }
+
+    context 'the robot is on the board' do
+      before { application.place(2, 3, Direction::NORTH) }
+
+      it 'should move the robot one position be to the NORTH' do
+        expect(table.position_of(robot)[:x]).to eq 2
+        expect(table.position_of(robot)[:y]).to eq 3
+        subject
+        expect(table.position_of(robot)[:x]).to eq 2
+        expect(table.position_of(robot)[:y]).to eq 4
+      end
+    end
+  end
 end

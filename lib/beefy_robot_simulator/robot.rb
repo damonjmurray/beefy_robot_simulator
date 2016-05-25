@@ -1,7 +1,7 @@
 class Robot
-  attr_reader :direction, :name
-
   MOVE_STEP = 1
+
+  attr_reader :direction, :name
 
   def initialize
     @name = 'BEEFY'

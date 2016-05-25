@@ -33,7 +33,7 @@ class Application
 
     target_position = @robot.move_from(current_position[:x], current_position[:y])
 
-    return unless @table.valid_position(target_position[:x], target_position[:y])
+    return unless @table.valid_position?(target_position[:x], target_position[:y])
     @table.remove_item_at_position(@robot, current_position[:x], current_position[:y])
     @table.set_item_at_position(@robot, target_position[:x], target_position[:y])
   end
