@@ -1,3 +1,4 @@
-require_relative 'beefy_robot_simulator/application'
-require_relative 'beefy_robot_simulator/robot'
-require_relative 'beefy_robot_simulator/table'
+# require all items in lib/beefy_robot_simulator/
+Dir[File.dirname(__FILE__) + '/beefy_robot_simulator/*.rb'].each do |file|
+  require file
+end

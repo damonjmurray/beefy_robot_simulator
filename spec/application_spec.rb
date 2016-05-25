@@ -14,7 +14,7 @@ RSpec.describe Application do
   end
 
   describe '#place' do
-    subject { application.place(2,2,'NORTH') }
+    subject { application.place(2,2,Direction::NORTH) }
 
     before do
       expect(application.robot.direction).to be_nil
@@ -23,7 +23,7 @@ RSpec.describe Application do
 
     it 'sets the robots direction' do
       subject
-      expect(application.robot.direction).to eq 'NORTH'
+      expect(application.robot.direction).to eq Direction::NORTH
     end
 
     it 'puts the robot in a position on the board' do
@@ -33,8 +33,8 @@ RSpec.describe Application do
 
     context 'multiple place commands' do
       subject do
-        application.place(2, 2, 'NORTH')
-        application.place(2, 3, 'SOUTH')
+        application.place(2, 2, Direction::NORTH)
+        application.place(2, 3, Direction::SOUTH)
       end
 
       it 'repositions the robot with each place' do
@@ -52,7 +52,7 @@ RSpec.describe Application do
     subject { application.report }
 
     context 'the robot is on the board' do
-      before { application.place(2, 3, 'EAST') }
+      before { application.place(2, 3, Direction::EAST) }
 
       it 'returns a string description of the robot location' do
         expect(subject).to eq '2,3,EAST'
@@ -66,25 +66,27 @@ RSpec.describe Application do
     end
   end
 
-  describe '#left' do
-    subject { application.left }
+  ['left', 'right'].each do |direction|
+    describe "##{direction}" do
+      subject { application.send(direction.to_sym) }
 
-    context 'the robot is on the board' do
-      before { application.place(2, 3, 'NORTH') }
+      context 'the robot is on the board' do
+        before { application.place(2, 3, Direction::NORTH) }
 
-      it 'should turn the robot left' do
-        allow(application.robot).to receive(:turn_left).once
-        subject
+        it 'should turn the robot left' do
+          allow(application.robot).to receive("turn_#{direction}".to_sym).once
+          subject
+        end
       end
-    end
 
-    context 'the robot is not on the board' do
-      before { expect(application.robot.direction).to be nil }
+      context 'the robot is not on the board' do
+        before { expect(application.robot.direction).to be nil }
 
-      it 'ignores the instruction to turn left' do
-        allow(application.robot).to receive(:turn_left).exactly(0).times
-        subject
-        expect(application.robot.direction).to be nil
+        it 'ignores the instruction to turn left' do
+          allow(application.robot).to receive("turn_#{direction}".to_sym).exactly(0).times
+          subject
+          expect(application.robot.direction).to be nil
+        end
       end
     end
   end

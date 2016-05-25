@@ -18,7 +18,7 @@ RSpec.describe Robot do
   end
 
   describe '#set_direction' do
-    let(:direction) { 'SOUTH' }
+    let(:direction) { Direction::SOUTH }
     subject { robot.set_direction(direction) }
 
     before { expect(robot.direction).to be nil }
@@ -33,14 +33,21 @@ RSpec.describe Robot do
     subject { robot.turn_left }
 
     [
-      { current: 'NORTH', expected_result: 'WEST' },
-      { current: 'EAST', expected_result: 'NORTH' },
-      { current: 'SOUTH', expected_result: 'EAST' },
-      { current: 'WEST', expected_result: 'SOUTH' }
+      { current: Direction::NORTH, expected_result: Direction::WEST },
+      { current: Direction::EAST, expected_result: Direction::NORTH },
+      { current: Direction::SOUTH, expected_result: Direction::EAST },
+      { current: Direction::WEST, expected_result: Direction::SOUTH }
     ].each do |direction|
       context "when robot is facing #{direction[:current]}" do
         before { robot.set_direction(direction[:current]) }
         it { is_expected.to eq direction[:expected_result] }
+      end
+    end
+
+    context 'when the robots direction has not been set' do
+      it 'does nothing' do
+        subject
+        expect(robot.direction).to be nil
       end
     end
   end
@@ -49,14 +56,21 @@ RSpec.describe Robot do
     subject { robot.turn_right }
 
     [
-      { current: 'NORTH', expected_result: 'EAST' },
-      { current: 'EAST', expected_result: 'SOUTH' },
-      { current: 'SOUTH', expected_result: 'WEST' },
-      { current: 'WEST', expected_result: 'NORTH' }
+      { current: Direction::NORTH, expected_result: Direction::EAST },
+      { current: Direction::EAST, expected_result: Direction::SOUTH },
+      { current: Direction::SOUTH, expected_result: Direction::WEST },
+      { current: Direction::WEST, expected_result: Direction::NORTH }
     ].each do |direction|
       context "when robot is facing #{direction[:current]}" do
         before { robot.set_direction(direction[:current]) }
         it { is_expected.to eq direction[:expected_result] }
+      end
+    end
+
+    context 'when the robots direction has not been set' do
+      it 'does nothing' do
+        subject
+        expect(robot.direction).to be nil
       end
     end
   end
