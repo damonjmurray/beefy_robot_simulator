@@ -18,13 +18,13 @@ class Application
   end
 
   def left
-    # TODO: change robot's direction 90 degrees to the left
-    raise NotImplementedError
+    return if @table.position_of(@robot).nil?
+    @robot.turn_left
   end
 
   def right
-    # TODO: change robot's direction 90 degrees to the right
-    raise NotImplementedError
+    return if @table.position_of(@robot).nil?
+    @robot.turn_right
   end
 
   def move

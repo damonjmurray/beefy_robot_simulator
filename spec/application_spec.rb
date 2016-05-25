@@ -65,4 +65,27 @@ RSpec.describe Application do
       end
     end
   end
+
+  describe '#left' do
+    subject { application.left }
+
+    context 'the robot is on the board' do
+      before { application.place(2, 3, 'NORTH') }
+
+      it 'should turn the robot left' do
+        allow(application.robot).to receive(:turn_left).once
+        subject
+      end
+    end
+
+    context 'the robot is not on the board' do
+      before { expect(application.robot.direction).to be nil }
+
+      it 'ignores the instruction to turn left' do
+        allow(application.robot).to receive(:turn_left).exactly(0).times
+        subject
+        expect(application.robot.direction).to be nil
+      end
+    end
+  end
 end
