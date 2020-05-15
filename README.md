@@ -53,7 +53,8 @@ Example Input and Output
 ### Example a
 
 ```
-PLACE 0,0,NORTH MOVE
+PLACE 0,0,NORTH 
+MOVE
 REPORT
 Expected output: 0,1,NORTH
 ```
@@ -61,7 +62,8 @@ Expected output: 0,1,NORTH
 ### Example b
 
 ```
-PLACE 0,0,NORTH LEFT
+PLACE 0,0,NORTH 
+LEFT
 REPORT
 Expected output: 0,0,WEST
 ```
@@ -69,7 +71,8 @@ Expected output: 0,0,WEST
 ### Example c
 
 ```
-PLACE 1,2,EAST MOVE
+PLACE 1,2,EAST 
+MOVE
 MOVE
 LEFT
 MOVE REPORT
